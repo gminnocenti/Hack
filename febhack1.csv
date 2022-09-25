@@ -1,0 +1,19 @@
+ID,Nombre,Apellido,Edad,Sexo,Servicio,Acceso,MontoL,Estado,Municipio,Pais,Dia,Mes,Ano,Hora,Celular,Correo
+1212,Gian,Inno,21,H,Retiro,BM," $10,764.19 ",NL,MTY,MEX,2,2,2022,14,8383838,Gian@banorte.com
+1212,Gian,Inno,21,H,Pago,BM," $3,000.00 ",NL,MTY,MEX,9,2,2022,13,8383838,Gian@banorte.com
+1212,Gian,Inno,21,H,Deposito,SUC," $1,500.00 ",NL,MTY,MEX,19,2,2022,12,8383838,Gian@banorte.com
+1212,Gian,Inno,21,H,Deposito,BM, $500.00 ,NL,SC,MEX,27,2,2022,17,8383838,Gian@banorte.com
+1213,Jose,Chavez,33,H,Deposito,SUC," $4,800.00 ",NL,MTY,MEX,13,2,2022,18,848484,Jose@banorte.com
+1213,Jose,Chavez,33,H,Pago,SUC, $800.00 ,CHI,CDMX,MEX,14,2,2022,19,848484,Jose@banorte.com
+1214,Mariana,Borja,62,M,Transferencia,CON," $2,000.00 ",NL,MTY,MEX,12,2,2022,20,858585,Mariana@banorte.com
+1214,Mariana,Borja,62,M,Pago,CON," $21,000.00 ",NL,MTY,MEX,29,2,2022,12,858585,Mariana@banorte.com
+1215,Javier,Meza,46,H,Deposito,SUC," $10,297.41 ",NL,MTY,MEX,2,2,2022,14,868686,Javier@banorte.com
+1215,Javier,Meza,46,H,Pago,BM, $815.98 ,NL,MTY,MEX,6,2,2022,16,868686,Javier@banorte.com
+1217,Valeria,Garza,19,M,Inversion,CON," $11,558.48 ",NL,SC,MEX,1,2,2022,18,878787,Valeria@banorte.com
+1217,Valeria,Garza,19,M,Inversion,BM," $9,000.00 ",COA,SAL,MEX,23,2,2022,19,878787,Valeria@banorte.com
+1219,Lilian,Jimenez,28,M,Deposito,BM," $10,359.13 ",COA,SAL,MEX,8,2,2022,21,8989898,Lilian@banorte.com
+1219,Lilian,Jimenez,28,M,Retiro,SUC, $700.12 ,COA,SAL,MEX,12,2,2022,23,8989898,Lilian@banorte.com
+1220,Lorenzo,Leiva,37,H,Inversion,SUC," $10,739.29 ",NL,MTY,MEX,4,2,2022,22,919191,Lorenzo@banorte.com
+1220,Lorenzo,Leiva,37,H,Retiro,BM," $10,947.15 ",COA,SAL,MEX,20,2,2022,9,919191,Lorenzo@banorte.com
+1221,Cesar,Lopez,50,H,Pago,CON," $11,436.83 ",CHI,CHI,MEX,16,2,2022,13,92929292,Cesar@banorte.com
+1221,Cesar,Lopez,50,H,Retiro,CON," $2,150.00 ",NL,MTY,MEX,23,2,2022,15,92929292,Cesar@banorte.com

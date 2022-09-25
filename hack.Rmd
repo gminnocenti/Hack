@@ -1,0 +1,352 @@
+---
+title: "hack"
+author: "gian marco innocenti"
+date: "2022-09-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+M<-read.csv("enhackprueba1.csv")
+```
+
+```{r}
+#DIVIDR POR EDADES
+M["age_group"] = cut(M$Edad, c(0, 25, 35,45,65, Inf), c("0-25", "26-35", "36-45", "46-65",">65"), include.lowest=TRUE)
+```
+```{r}
+#Dividir base por rangos de edad
+
+#rango de 18-25
+Mveinti<-M
+Mveinti$age_group[Mveinti$age_group!="0-25"]<-NA
+Mveinticinco<-na.omit(Mveinti)
+
+#rango 26-35
+Mtreinti<-M
+Mtreinti$age_group[Mtreinti$age_group!="26-35"]<-NA
+Mtreinticinco<-na.omit(Mtreinti)
+
+#rango 36-45
+Mcuarenti<-M
+Mcuarenti$age_group[Mcuarenti$age_group!="36-45"]<-NA
+Mcuarenticinco<-na.omit(Mcuarenti)
+#rango 46-65
+Msesenti<-M
+Msesenti$age_group[Msesenti$age_group!="46-65"]<-NA
+Msesentiticinco<-na.omit(Msesenti)
+#rango 65+
+Msetenti<-M
+Msetenti$age_group[Msetenti$age_group!=">65"]<-NA
+Msetentiticinco<-na.omit(Msetenti)
+
+```
+
+#Personas de 25 Enero
+```{r}
+#Segregar personas que solo usaron BM y personas que usaron al menos un otro tipo de ACCEso
+
+
+#Segregar personas de 25
+
+#Personas que usaron otro metodoo que no sea BM
+MveinticincoM<-Mveinticinco
+MveinticincoM$Acceso[MveinticincoM$Acceso=="BM"]<-NA
+Mveinticincom<-na.omit(MveinticincoM)
+#Crear vector con ids para comparar cuales usuarios usaron mas de un solo acceso
+id<-Mveinticincom$ID
+Mveinticinco$Repeticion[Mveinticinco$ID%in%id]<-"Mal"
+
+#Crear vectores que solo usan BM y otras que no solo usan BM
+#vector de ids de los que solo usan BM
+Mveinticinco[is.na(Mveinticinco)] <-"Bueno"
+Mveinticinco$Repeticion[Mveinticinco$Repeticion=="Mal"]<-NA
+enveintiBM<-na.omit(Mveinticinco)
+#vectores de nombres que solo usaron BM
+nomenveintiBM<-enveintiBM$ID
+
+#crear vector de ids de personas que usaron no solo Bm
+Mveinticinco[is.na(Mveinticinco)] <-"Mal"
+Mveinticinco$Repeticion[Mveinticinco$Repeticion=="Bueno"]<-NA
+NoenveintiBM<-na.omit(Mveinticinco)
+#vectores de nombres que solo usaron BM
+nomNoenveintiBM<-NoenveintiBM$ID
+```
+```{r}
+#archivo csv de personas para enviar mensaje por no usar solo BM
+write.csv(NoenveintiBM,"25_MensajenoBmEnero.csv")
+```
+```{r}
+#crear archivos de personas que hacen transacciones afuera de la Banca Movil en horas cerca del cierre de tiendas para enviarles un mensaje "recuerda que la aplicacion puedes hacer transacciones a cualquier hora")
+HNoenveintiBM<-NoenveintiBM
+HNoenveintiBM$Hora[HNoenveintiBM$Hora<14]<-NA
+Horaene<-na.omit(HNoenveintiBM)
+write.csv(Horaene,"25_Mensajehoraen.csv")
+
+```
+
+
+#Personas 35 enero
+```{r}
+#Segregar personas que solo usaron BM y personas que usaron al menos un otro tipo de ACCEso
+
+
+#Segregar personas de 35
+
+#Personas que usaron otro metodoo que no sea BM
+MtreinticincoM<-Mtreinticinco
+MtreinticincoM$Acceso[MtreinticincoM$Acceso=="BM"]<-NA
+Mtreinticincom<-na.omit(MtreinticincoM)
+#Crear vector con ids para comparar cuales usuarios usaron mas de un solo acceso
+id<-Mtreinticincom$ID
+Mtreinticinco$Repeticion[Mtreinticinco$ID%in%id]<-"Mal"
+
+#Crear vectores que solo usan BM y otras que no solo usan BM
+#vector de ids de los que solo usan BM
+Mtreinticinco[is.na(Mtreinticinco)] <-"Bueno"
+Mtreinticinco$Repeticion[Mtreinticinco$Repeticion=="Mal"]<-NA
+entreintiBM<-na.omit(Mtreinticinco)
+#vectores de nombres que solo usaron BM
+nomentreintiBM<-entreintiBM$ID
+
+#crear vector de ids de personas que usaron no solo Bm
+Mtreinticinco[is.na(Mtreinticinco)] <-"Mal"
+Mtreinticinco$Repeticion[Mtreinticinco$Repeticion=="Bueno"]<-NA
+NoentreintiBM<-na.omit(Mtreinticinco)
+#vectores de nombres que solo usaron BM
+nomNoentreintiBM<-NoentreintiBM$ID
+```
+```{r}
+#archivo csv de personas para enviar mensaje por no usar solo BM 35
+write.csv(NoentreintiBM,"35_MensajenoBmEnero.csv")
+```
+```{r}
+#crear archivos de personas que hacen transacciones afuera de la Banca Movil en horas cerca del cierre de tiendas para enviarles un mensaje "recuerda que la aplicacion puedes hacer transacciones a cualquier hora")
+HNoentreintiBM<-NoentreintiBM
+HNoentreintiBM$Hora[HNoentreintiBM$Hora<14]<-NA
+Horaene35<-na.omit(HNoentreintiBM)
+write.csv(Horaene35,"35_Mensajehora.csv")
+
+```
+
+
+
+
+
+
+
+
+#Datos febrero
+
+```{r}
+N<-read.csv("febhack1.csv")
+```
+```{r}
+#DIVIDR POR EDADES
+N["age_group"] = cut(N$Edad, c(0, 25, 35,45,65, Inf), c("0-25", "26-35", "36-45", "46-65",">65"), include.lowest=TRUE)
+```
+```{r}
+#Dividir base por rangos de edad
+
+#rango de 18-25
+Nveinti<-N
+Nveinti$age_group[Nveinti$age_group!="0-25"]<-NA
+Nveinticinco<-na.omit(Nveinti)
+
+#rango 26-35
+Ntreinti<-N
+Ntreinti$age_group[Ntreinti$age_group!="26-35"]<-NA
+Ntreinticinco<-na.omit(Ntreinti)
+
+#rango 36-45
+Ncuarenti<-N
+Ncuarenti$age_group[Ncuarenti$age_group!="36-45"]<-NA
+Ncuarenticinco<-na.omit(Ncuarenti)
+#rango 46-65
+Nsesenti<-N
+Nsesenti$age_group[Nsesenti$age_group!="46-65"]<-NA
+Nsesentiticinco<-na.omit(Nsesenti)
+#rango 65+
+Nsetenti<-N
+Nsetenti$age_group[Nsetenti$age_group!=">65"]<-NA
+Nsetentiticinco<-na.omit(Nsetenti)
+
+```
+
+#Personas de 25 Febrero
+```{r}
+#Segregar personas que solo usaron BM y personas que usaron al menos un otro tipo de ACCEso
+
+
+#Segregar personas de 25
+
+#Personas que usaron otro metodoo que no sea BM
+NveinticincoM<-Nveinticinco
+NveinticincoM$Acceso[NveinticincoM$Acceso=="BM"]<-NA
+Nveinticincom<-na.omit(NveinticincoM)
+#Crear vector con ids para comparar cuales usuarios usaron mas de un solo acceso
+idf<-Nveinticincom$ID
+Nveinticinco$Repeticion[Nveinticinco$ID%in%idf]<-"Mal"
+
+#Crear vectores que solo usan BM y otras que no solo usan BM
+#vector de ids de los que solo usan BM
+Nveinticinco[is.na(Nveinticinco)] <-"Bueno"
+Nveinticinco$Repeticion[Nveinticinco$Repeticion=="Mal"]<-NA
+febveintiBM<-na.omit(Nveinticinco)
+#vectores de nombres que solo usaron BM
+nofebveintiBM<-febveintiBM$ID
+
+#crear vector de ids de personas que usaron no solo Bm
+Nveinticinco[is.na(Nveinticinco)] <-"Mal"
+Nveinticinco$Repeticion[Nveinticinco$Repeticion=="Bueno"]<-NA
+NofebveintiBM<-na.omit(Nveinticinco)
+#vectores de nombres que solo usaron BM
+nomNofebveintiBM<-NofebveintiBM$ID
+```
+```{r}
+#archivo csv de personas para enviar mensaje por no usar solo BM
+write.csv(NofebveintiBM,"25_MensajenoBmFebrero.csv")
+```
+```{r}
+#crear archivos de personas que hacen transacciones afuera de la Banca Movil en horas cerca del cierre de tiendas para enviarles un mensaje "recuerda que la aplicacion puedes hacer transacciones a cualquier hora")
+HNofebveintiBM<-Nveinticinco
+HNofebveintiBM$Hora[HNofebveintiBM$Hora<14]<-NA
+Horafeb<-na.omit(HNofebveintiBM)
+write.csv(Horafeb,"25_Mensajehorafeb.csv")
+
+```
+
+#Personas de 35 febrero
+```{r}
+#Segregar personas que solo usaron BM y personas que usaron al menos un otro tipo de ACCEso
+
+
+#Segregar personas de 35
+
+#Personas que usaron otro metodoo que no sea BM
+NtreinticincoM<-Ntreinticinco
+NtreinticincoM$Acceso[NtreinticincoM$Acceso=="BM"]<-NA
+Ntreinticincom<-na.omit(NtreinticincoM)
+#Crear vector con ids para comparar cuales usuarios usaron mas de un solo acceso
+id<-Ntreinticincom$ID
+Ntreinticinco$Repeticion[Ntreinticinco$ID%in%id]<-"Mal"
+
+#Crear vectores que solo usan BM y otras que no solo usan BM
+#vector de ids de los que solo usan BM
+Ntreinticinco[is.na(Ntreinticinco)] <-"Bueno"
+Ntreinticinco$Repeticion[Ntreinticinco$Repeticion=="Mal"]<-NA
+febtreintiBM<-na.omit(Ntreinticinco)
+#vectores de nombres que solo usaron BM
+nomfebtreintiBM<-febtreintiBM$ID
+
+#crear vector de ids de personas que usaron no solo Bm
+Ntreinticinco[is.na(Ntreinticinco)] <-"Mal"
+Ntreinticinco$Repeticion[Ntreinticinco$Repeticion=="Bueno"]<-NA
+NofebtreintiBM<-na.omit(Ntreinticinco)
+#vectores de nombres que solo usaron BM
+nomNofebtreintiBM<-NofebtreintiBM$ID
+```
+```{r}
+#archivo csv de personas para enviar mensaje por no usar solo BM 35
+write.csv(NofebtreintiBM,"35_MensajenoBmFebrero.csv")
+```
+```{r}
+#crear archivos de personas que hacen transacciones afuera de la Banca Movil en horas cerca del cierre de tiendas para enviarles un mensaje "recuerda que la aplicacion puedes hacer transacciones a cualquier hora")
+HNofebtreintiBM<-NofebtreintiBM
+HNofebtreintiBM$Hora[HNofebtreintiBM$Hora<14]<-NA
+Horafeb35<-na.omit(HNofebtreintiBM)
+write.csv(Horafeb35,"35_Mensajehora.csv")
+
+```
+
+
+
+
+#Comparacion febrero personas 25 con enero personas 25
+```{r}
+#comparar cambios de conducta personas hasta 25
+Nveinticincom$comp[Nveinticincom$ID%in%nomenveintiBM]<-"cambio"
+Nveinticambiodeconducta<-na.omit(Nveinticincom)
+#cambio de conducta enviar mensaje de deposito
+DNveinticambiodeconducta<-Nveinticambiodeconducta$Serv[Nveinticambiodeconducta$Servicio!="Deposito"]<-NA
+write.csv(DNveinticambiodeconducta,"25_MensajeDepositoFeb.csv")
+#cambio de conducta enviar mensaje de inversion
+Inveinticambiodeconducta<-Nveinticambiodeconducta$Serv[Nveinticambiodeconducta$Servicio!="Inversion"]<-NA
+write.csv(Inveinticambiodeconducta,"25_MensajeInversionFeb.csv")
+#cambio de conducta enviar mensaje de Transferencia
+Trveinticambiodeconducta<-Nveinticambiodeconducta$Serv[Nveinticambiodeconducta$Servicio!="Transferencia"]<-NA
+write.csv(Trveinticambiodeconducta,"25_MensajeTrasnferenciaFeb.csv")
+#cambio de conducta enviar mensaje de Transferencia
+Paveinticambiodeconducta<-Nveinticambiodeconducta$Serv[Nveinticambiodeconducta$Servicio!="Pago"]<-NA
+write.csv(Paveinticambiodeconducta,"25_MensajeTrasnferenciaFeb.csv")
+```
+
+
+```{r}
+#crear archivos de personas que cambian de ubicacion de enero a febrero de personas 25
+ubien<-Mveinticinco$Estado
+UbiNveinticinco<-Nveinticinco
+UbiNveinticinco1<-UbiNveinticinco%>%
+  group_by(ID)%>%
+  summarize(count=n_distinct(Estado))
+UbiNveinticinco1$count[UbiNveinticinco1$count<2]<-NA
+Ubienfeb2<-na.omit(UbiNveinticinco1)
+UbienfebID<-Ubienfeb2$ID
+Ubifinfeb<-Nveinticinco
+Ubifinfeb$Estado[Ubifinfeb$ID%in%UbienfebID]<-"Mal"
+Ubifinfeb$Estado[Ubifinfeb$Estado!="Mal"]<-NA
+Ubienfebfinal<-na.omit(Ubifinfeb)
+#Base de datos para enviar mensaje para gente que no hizo transaccion en su estado habitual
+write.csv(Ubienfebfinal,"cambioubicacionenfeb25.csv")
+
+```
+
+
+
+#Comparacion febrero personas 35 con enero personas 35
+```{r}
+#comparar cambios de conducta personas hasta 35
+Ntreinticincom$comp[Ntreinticincom$ID%in%nomentreintiBM]<-"cambio"
+Ntreinticambiodeconducta<-na.omit(Ntreinticincom)
+
+#cambio de conducta enviar mensaje de deposito
+DNtreinticambiodeconducta<-Ntreinticambiodeconducta$Serv[Ntreinticambiodeconducta$Servicio!="Deposito"]<-NA
+write.csv(DNtreinticambiodeconducta,"35_MensajeDepositoFeb.csv")
+
+#cambio de conducta enviar mensaje de inversion
+Intreinticambiodeconducta<-Ntreinticambiodeconducta$Serv[Ntreinticambiodeconducta$Servicio!="Inversion"]<-NA
+write.csv(Intreinticambiodeconducta,"35_MensajeInversionFeb.csv")
+
+#cambio de conducta enviar mensaje de Transferencia
+Trtreinticambiodeconducta<-Ntreinticambiodeconducta$Serv[Ntreinticambiodeconducta$Servicio!="Transferencia"]<-NA
+write.csv(Trtreinticambiodeconducta,"35_MensajeTrasnferenciaFeb.csv")
+
+#cambio de conducta enviar mensaje de Pago
+Patreinticambiodeconducta<-Ntreinticambiodeconducta$Serv[Ntreinticambiodeconducta$Servicio!="Pago"]<-NA
+write.csv(Patreinticambiodeconducta,"35_MensajeTrasnferenciaFeb.csv")
+
+#cambio de conducta enviar mensaje de Retiro
+Retreinticambiodeconducta<-Ntreinticambiodeconducta$Serv[Ntreinticambiodeconducta$Servicio!="Retiro"]<-NA
+write.csv(Retreinticambiodeconducta,"35_MensajeRetiroFeb.csv")
+```
+```{r}
+#crear archivos de personas que cambian de ubicacion de enero a febrero de personas 35
+ubien<-Mtreinticinco$Estado
+UbiNtreinticinco<-Ntreinticinco
+UbiNtreinticinco1<-UbiNtreinticinco%>%
+  group_by(ID)%>%
+  summarize(count=n_distinct(Estado))
+UbiNtreinticinco1$count[UbiNtreinticinco1$count<2]<-NA
+Ubienfeb2<-na.omit(UbiNtreinticinco1)
+UbienfebID<-Ubienfeb2$ID
+Ubifinfeb<-Ntreinticinco
+Ubifinfeb$Estado[Ubifinfeb$ID%in%UbienfebID]<-"Mal"
+Ubifinfeb$Estado[Ubifinfeb$Estado!="Mal"]<-NA
+Ubienfebfinal35<-na.omit(Ubifinfeb)
+#Base de datos para enviar mensaje para gente que no hizo transaccion en su estado habitual
+write.csv(Ubienfebfinal35,"cambioubicacionenfeb35.csv")
+
+```
